@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 var collection = null;
-MongoClient.connect("mongodb://localhost:27017/fri3d-font", function(err, db) {
+MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/fri3d-font", function(err, db) {
   if( ! err ) { console.log("Connected to MongoDB"); }
   collection = db.collection('submissions');
 });
