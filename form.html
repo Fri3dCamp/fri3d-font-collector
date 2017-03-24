@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Canvas Writer Demo</title>
+  <meta name="viewport" 
+        content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+  <style>
+  CANVAS {
+    border: 1px solid black;
+  }
+  </style>
+</head>
+
+<body>
+  <h1>Fri3d Font Collector</h1>
+
+  <p>
+    Complete the form below, entering your name and the ten digits, and press
+    submit to send in your personal Fri3d Font.
+  </p>
+  <p>
+    Selecting any of the digits shows the current recording for that digit and
+    allows you to add more pixels. Using clear you can restart.
+  </p>
+  
+  <input name="digit" type="radio" value="0" onclick="change(0);" checked>0
+  <input name="digit" type="radio" value="1" onclick="change(1);">1
+  <input name="digit" type="radio" value="2" onclick="change(2);">2
+  <input name="digit" type="radio" value="3" onclick="change(3);">3
+  <input name="digit" type="radio" value="4" onclick="change(4);">4
+  <input name="digit" type="radio" value="5" onclick="change(5);">5
+  <input name="digit" type="radio" value="6" onclick="change(6);">6
+  <input name="digit" type="radio" value="7" onclick="change(7);">7
+  <input name="digit" type="radio" value="8" onclick="change(8);">8
+  <input name="digit" type="radio" value="9" onclick="change(9);">9
+  <br>
+  <canvas id="canvas" width="150" height="200"></canvas>
+  <br>
+  <input type="button" value="clear" onclick="clearCanvas();">
+  <hr>
+  name : <input id="name" type="text">
+  <br>
+  <input type="button" value="submit" onclick="submit();">
+
+
+  <script src="canvas-writer.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+  <script>
+    var socket;
+    var writer;
+    var font = {};
+
+    window.onload = function() { 
+      socket = io();
+      socket.on('response', function(msg){
+        if(msg == "ok") {
+          alert("Submission ok. Thanks!");
+        } else {
+          alert("Submission failed. Sorry :-(");
+        }
+      });
+      writer = CanvasWriter.useInput("canvas")
+                           .useOutput("canvas")
+                           .setSpeed(5);
+      writer.record();
+    }
+
+    function clearCanvas() {
+      writer.stop();
+      writer.record();
+    }
+    
+    var current = 0;
+    
+    function change(digit) {
+      writer.cancel();
+      writer.stop();
+      font[current] = writer.getRecorded();
+      current = digit;
+      writer.record();
+      if(font[current]) {
+        writer.load(font[current]);
+      }
+    }
+
+    function submit() {
+      change(current);
+      socket.emit('submission', {
+        "author" : document.getElementById("name").value,
+        "font"   : font
+      });
+    }
+
+  </script>
+</body>
+</html>
