@@ -1,10 +1,11 @@
 // mongo
 
-var MongoClient = require('mongodb').MongoClient;
-var collection = null;
+var mongodb = require('mongodb');
+var MongoClient = mongodb.MongoClient;
+var submissions = null;
 MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/fri3d-font", function(err, db) {
   if( ! err ) { console.log("Connected to MongoDB"); }
-  collection = db.collection('submissions');
+  submissions = db.collection('submissions');
 });
 
 // app
@@ -24,10 +25,9 @@ app.get('/', function(req, res) {
 });
 
 app.post('/submission', function(req, res) {
-  console.log("new submission");
   var submission = req.body;
   submission.ts = new Date();
-  collection.insert(submission, {w:1}, function(err, result) {
+  submissions.insert(submission, {w:1}, function(err, result) {
     res.end(JSON.stringify({"result" : err ? "error" : "ok" }));
   });
 });
