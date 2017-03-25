@@ -54,7 +54,11 @@
     
     function show(index) {
       var font = submissions[index]["font"];
-      document.getElementById("font").value = JSON.stringify(font);
+      var json = [];
+      for(var digit=0; digit<10; digit++) {
+        json.push('"' + digit + '" : ' + JSON.stringify(font[digit]) );
+      }
+      document.getElementById("font").value = "{\n" + json.join(",\n") + "\n}";
       CanvasWriter.useOutput("canvas")
                   .setSpeed(5)
                   .write( font, "0123456789".split("") );
