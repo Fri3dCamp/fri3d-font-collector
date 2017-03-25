@@ -5,16 +5,16 @@ MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/fri3d-
   collection = db.collection('submissions');
 });
 
-var app  = require('express')();
 var http = require('http').Server(app);
 var io   = require('socket.io')(http);
+var express = require('express')
+var app = express()
+app.use(express.static('static'));
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/form.html');
 });
 
-app.get('/canvas-writer.js', function(req, res){
-  res.sendFile(__dirname + '/canvas-writer.js');
 });
 
 io.on('connection', function(socket){
