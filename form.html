@@ -6,6 +6,12 @@
   <title>Canvas Writer Demo</title>
   <meta name="viewport" 
         content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans:400,700|Ubuntu+Mono:400" rel="stylesheet">
+  <link rel="stylesheet" href="http://fri3d.be/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://fri3d.be/vendor/slick-1.6.0/slick/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="http://fri3d.be/vendor/slick-1.6.0/slick/slick-theme.css"/>
+
   <style>
   CANVAS {
     border: 1px solid black;
@@ -13,40 +19,57 @@
   </style>
 </head>
 
-<body>
-  <h1>Fri3d Font Collector</h1>
+  <body id="landingpage">
+    <div class="pagehead">
+      <div class="logo">
+        <img src="http://fri3d.be/img/logo-white.svg" alt="Fri3d Camp 2018"/>
+      </div>
+    </div>
 
-  <p>
-    Complete the form below, entering your name and <i>recordings</i> for each
-    of the ten digits, and press submit to send in your personal Fri3d Font.
-  </p>
-  
-  <p>
-    To record a digit, just <i>draw</i> inside the rectangle - with your mouse
-    cursor or with your finger if on mobile. Selecting any of the digits shows
-    the current recording for that digit and allows you to add more pixels.
-    Using clear you can restart.
-  </p>
-  
-  <input name="digit" type="radio" value="0" onclick="change(0);" checked>0
-  <input name="digit" type="radio" value="1" onclick="change(1);">1
-  <input name="digit" type="radio" value="2" onclick="change(2);">2
-  <input name="digit" type="radio" value="3" onclick="change(3);">3
-  <input name="digit" type="radio" value="4" onclick="change(4);">4
-  <input name="digit" type="radio" value="5" onclick="change(5);">5
-  <input name="digit" type="radio" value="6" onclick="change(6);">6
-  <input name="digit" type="radio" value="7" onclick="change(7);">7
-  <input name="digit" type="radio" value="8" onclick="change(8);">8
-  <input name="digit" type="radio" value="9" onclick="change(9);">9
-  <br>
-  <canvas id="canvas" width="150" height="200"></canvas>
-  <br>
-  <input type="button" value="clear" onclick="clearCanvas();">
-  <hr>
-  name : <input id="name" type="text">
-  <br>
-  <input type="button" value="submit" onclick="submit();">
+  <div class="maincontent">
+    <h1>Fri3d Font Collector</h1>
 
+    <p>
+      Vervolledig het onderstaande formulier en stuur het door.<br>
+      
+      Maak voor elk van de 10 cijfers een opname van jouw handschrift. Doe dit
+      door in de rechthoek met je muis/cursor of met je vinger, op een mobiel
+      toestel, de cijfers te <i>tekenen</i>.
+    </p>
+    
+    <p>
+      Je kan steeds je reeds opgenomen cijfers opnieuw bekijken en eventueel
+      bijwerken of opnieuw beginnen.
+    </p>
+    
+    <p>
+      We bekijken jullie inzendingen regelmatig en voegen jullie bijdragen aan
+      de Fri3d Font zo snel mogelijk toe aan de offici&euml;le Fri3d Camp 2018
+      count-down.
+    </p>
+
+    <hr>
+
+    <center>
+      <input name="digit" type="radio" value="0" onclick="change(0);" checked>0
+      <input name="digit" type="radio" value="1" onclick="change(1);">1 &nbsp;
+      <input name="digit" type="radio" value="2" onclick="change(2);">2 &nbsp;
+      <input name="digit" type="radio" value="3" onclick="change(3);">3 &nbsp;
+      <input name="digit" type="radio" value="4" onclick="change(4);">4 &nbsp;
+      <input name="digit" type="radio" value="5" onclick="change(5);">5 &nbsp;
+      <input name="digit" type="radio" value="6" onclick="change(6);">6 &nbsp;
+      <input name="digit" type="radio" value="7" onclick="change(7);">7 &nbsp;
+      <input name="digit" type="radio" value="8" onclick="change(8);">8 &nbsp;
+      <input name="digit" type="radio" value="9" onclick="change(9);">9 &nbsp;
+      <br>
+      <canvas id="canvas" width="150" height="200"></canvas>
+      <br>
+      <input type="button" value="herbegin" onclick="clearCanvas();">
+      <hr>
+      jouw naam : <input id="name" type="text">
+      <input type="button" value="doorsturen" onclick="submit();">
+    </center>
+  </div>
 
   <script src="canvas-writer.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
