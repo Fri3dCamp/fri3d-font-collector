@@ -104,8 +104,24 @@
 
     function submit() {
       change(current);
+      var author = document.getElementById("name").value;
+
+      if(author == "") {
+        alert("Gelieve je naam in te vullen.");
+        return;
+      }
+
+      var count = 0;
+      for( character in font ) { count++; }
+
+      if(count != 10) {
+        console.log(count);
+        alert("Gelieve voor elk van de cijfers een opname te maken.");
+        return;
+      }
+
       send({
-        "author" : document.getElementById("name").value,
+        "author" : author,
         "font"   : font
       });
     }
