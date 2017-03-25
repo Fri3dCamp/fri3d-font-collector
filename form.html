@@ -46,7 +46,6 @@
 
 
   <script src="canvas-writer.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
   <script>
@@ -55,14 +54,6 @@
     var font = {};
 
     window.onload = function() { 
-      socket = io();
-      socket.on('response', function(msg){
-        if(msg == "ok") {
-          alert("Submission ok. Thanks!");
-        } else {
-          alert("Submission failed. Sorry :-(");
-        }
-      });
       writer = CanvasWriter.useInput("canvas")
                            .useOutput("canvas")
                            .setSpeed(5);
@@ -89,9 +80,29 @@
 
     function submit() {
       change(current);
-      socket.emit('submission', {
+      send({
         "author" : document.getElementById("name").value,
         "font"   : font
+      });
+    }
+
+    function send(data) {
+      $.ajax({
+        type: "POST",
+        url: "/submission",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(msg){
+          if(msg.result == "ok") {
+            alert("Submission ok. Thanks!");
+          } else {
+            alert("Submission failed. Sorry :-(");
+          }
+        },
+        failure: function(error) {
+          alert("Submission failed. Sorry :-(");
+        }
       });
     }
 
