@@ -25,7 +25,7 @@
     </div>
 
   <div class="maincontent">
-    <h1>Fri3d Font Collector</h1>
+    <h1>D&eacute; Fri3d Font</h1>
 
     <p>Wil je jouw eigen handschrift ook zien in de afteller op <a href="http://www.fri3d.be">www.fri3d.be</a>?</p>
     <ol>
@@ -106,7 +106,6 @@
       for( character in font ) { count++; }
 
       if(count != 10) {
-        console.log(count);
         alert("Gelieve voor elk van de cijfers een opname te maken.");
         return;
       }
@@ -126,13 +125,13 @@
         dataType: "json",
         success: function(msg){
           if(msg.result == "ok") {
-            alert("Submission ok. Thanks!");
+            alert("Inzending ok. Bedankt!");
           } else {
-            alert("Submission failed. Sorry :-(");
+            alert("Inzending faalde. Sorry :-(");
           }
         },
         failure: function(error) {
-          alert("Submission failed. Sorry :-(");
+          alert("Inzending faalde. Sorry :-(");
         }
       });
     }
