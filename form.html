@@ -64,7 +64,15 @@
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
   <script>
-    var writer, font = {};
+    var writer, font = {}, current = 0;
+    
+    function clear() {
+      clearCanvas();
+      font = {};
+      current = 0;
+      document.getElementById("name").value = "";
+      document.getElementById("digit0").click();
+    }
 
     window.onload = function() {
       writer = CanvasWriter.useInput("canvas")
@@ -77,8 +85,6 @@
       writer.stop();
       writer.record();
     }
-
-    var current = 0;
 
     function change(digit) {
       writer.cancel();
@@ -124,6 +130,7 @@
         success: function(msg){
           if(msg.result == "ok") {
             alert("Inzending ok. Bedankt!");
+            clear();
           } else {
             alert("Inzending faalde. Sorry :-(");
           }
