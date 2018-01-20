@@ -16,6 +16,11 @@ var app = express()
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+var Slack = require('slack-node');
+webhookUri = process.env.SLACK_WEBHOOK_URL;
+slack = new Slack();
+slack.setWebhook(webhookUri);
+
 // public
 
 app.use(express.static('static'));
@@ -29,6 +34,15 @@ app.post('/submission', function(req, res) {
   submission.ts = new Date();
   submissions.insert(submission, {w:1}, function(err, result) {
     res.end(JSON.stringify({"result" : err ? "error" : "ok" }));
+    // notify Slack of new submission
+    slack.webhook({
+      channel: "#content",
+      icon_emoji: ":robot_face:",
+      username: "Fri3dFont",
+      text: "A new Fri3d Font was submitted by " + submission.author + "."
+    }, function(err, response) {
+      console.log(response);
+    });
   });
 });
 
