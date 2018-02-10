@@ -783,3 +783,11 @@ input[type="button"].lowkey {
     page-break-after: avoid;
   }
 }
+
+DIV.tip {
+  margin-top: 35px;
+  padding: 15px;
+  font-size: 90%;
+  background-color: #EDEDED;
+  color: #005D6B;
+}
