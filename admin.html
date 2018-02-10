@@ -41,15 +41,16 @@
     }
 
     function refresh() {
-      document.getElementById("submissions").innerHTML = "";
+      var html = "<table>";
       for(var i=0; i<submissions.length; i++) {
-        document.getElementById("submissions").innerHTML +=
-          "<li>" +
-            "<a href=\"#\" onclick=\"show(" + i + ");\">" +
-            submissions[i]["ts"] + " " + submissions[i]["author"] + "</a>" + 
-            "<input type=\"button\" onclick=\"remove("+i+");\" value=\"remove\">" +
-          "</li>";
+        html +=
+          "<tr>" +
+            "<td><a href=\"#\" onclick=\"show(" + i + ");\">" +
+            submissions[i]["ts"] + "</a></td><td>" + submissions[i]["author"] + "</td>" + 
+            "<td><input type=\"button\" onclick=\"remove("+i+");\" value=\"remove\"></td>" +
+          "</tr>";
       }
+      document.getElementById("submissions").innerHTML = html;
     }
     
     function show(index) {
