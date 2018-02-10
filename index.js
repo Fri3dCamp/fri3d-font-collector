@@ -61,7 +61,7 @@ app.get('/admin', auth.connect(basic), function(req, res){
 });
 
 app.get('/submissions', auth.connect(basic), function(req, res){
-  submissions.find({}).toArray(function(err, docs){
+  submissions.find({}).sort({"ts" : 1}).toArray(function(err, docs){
     res.send(JSON.stringify(docs));
   });
 });
